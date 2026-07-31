@@ -3,6 +3,8 @@ using EmployeeManagement.BusinessObject.DTOs.EmployeeDTO;
 using EmployeeManagement.Repository;
 using EmployeeManagement.Repository.Implementations;
 using EmployeeManagement.Repository.Interfaces;
+using EmployeeManagement.Service.Implementations;
+using EmployeeManagement.Service.Interfaces;
 using EmployeeManagement.Service.Mappers;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +53,10 @@ namespace EmployeeManagement.API
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IWorkLogRepository, WorkLogRepository>();
+
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            builder.Services.AddScoped<IWorkLogService, WorkLogService>();
+            builder.Services.AddScoped<ISalaryService, SalaryService>();
 
             var app = builder.Build();
             app.UseMiddleware<GlobalExceptionMiddleware>();
