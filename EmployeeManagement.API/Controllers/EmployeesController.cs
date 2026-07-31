@@ -1,12 +1,12 @@
-﻿using EmployeeManagement.BusinessObject.DTOs.EmployeeDTO;
+using EmployeeManagement.BusinessObject.DTOs.EmployeeDTO;
 using EmployeeManagement.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.OData.Query;
-using Microsoft.AspNetCore.OData.Routing.Controllers;
 
 namespace EmployeeManagement.API.Controllers;
 
-public class EmployeesController : ODataController
+[ApiController]
+[Route("api/[controller]")]
+public class EmployeesController : ControllerBase
 {
     private readonly IEmployeeService _employeeService;
 
@@ -16,29 +16,28 @@ public class EmployeesController : ODataController
     }
 
     [HttpGet]
-    [EnableQuery]
-    public IActionResult Get()
+    public async Task<IActionResult> GetAll()
     {
-        return Ok(_employeeService.GetQueryable());
+        var employees = await _employeeService.GetAllAsync();
+        return Ok(employees);
     }
 
     [HttpGet("{id}")]
-    [EnableQuery]
-    public async Task<IActionResult> Get([FromRoute] Guid id)
+    public async Task<IActionResult> GetById([FromRoute] Guid id)
     {
         var employee = await _employeeService.GetByIdAsync(id);
         return Ok(employee);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post([FromBody] CreateEmployeeDto dto)
+    public async Task<IActionResult> Create([FromBody] CreateEmployeeDto dto)
     {
         var created = await _employeeService.CreateAsync(dto);
-        return Created(created);
+        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put([FromRoute] Guid id, [FromBody] UpdateEmployeeDto dto)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateEmployeeDto dto)
     {
         dto.Id = id;
         await _employeeService.UpdateAsync(dto);
