@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using EmployeeManagement.BusinessObject.DTOs;
+using AutoMapper;
 using EmployeeManagement.BusinessObject.DTOs.EmployeeDTO;
 using EmployeeManagement.BusinessObject.Entities;
 using EmployeeManagement.Repository.Interfaces;
@@ -18,9 +17,10 @@ public class EmployeeService : IEmployeeService
         _mapper = mapper;
     }
 
-    public IQueryable<EmployeeDto> GetQueryable()
+    public async Task<IEnumerable<EmployeeDto>> GetAllAsync()
     {
-        return _mapper.ProjectTo<EmployeeDto>(_employeeRepository.GetQueryable());
+        var employees = await _employeeRepository.GetAllAsync();
+        return _mapper.Map<IEnumerable<EmployeeDto>>(employees);
     }
 
     public async Task<EmployeeDto> GetByIdAsync(Guid id)
@@ -47,7 +47,6 @@ public class EmployeeService : IEmployeeService
             throw new KeyNotFoundException($"Không tìm thấy nhân viên với ID: {dto.Id} để cập nhật.");
 
         _mapper.Map(dto, employee);
-        _employeeRepository.Update(employee);
         await _employeeRepository.SaveChangesAsync();
     }
 
