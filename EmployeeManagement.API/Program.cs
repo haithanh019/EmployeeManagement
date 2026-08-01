@@ -41,8 +41,15 @@ namespace EmployeeManagement.API
             builder.Services.AddScoped<IWorkLogService, WorkLogService>();
             builder.Services.AddScoped<ISalaryService, SalaryService>();
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                    policy.WithOrigins("http://localhost:5173")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod());
+            });
             var app = builder.Build();
-
+            app.UseCors();
             app.UseMiddleware<GlobalExceptionMiddleware>();
 
             if (app.Environment.IsDevelopment())
