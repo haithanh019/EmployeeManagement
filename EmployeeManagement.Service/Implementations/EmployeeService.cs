@@ -27,7 +27,7 @@ public class EmployeeService : IEmployeeService
     {
         var employee = await _employeeRepository.GetByIdAsync(id);
         if (employee == null)
-            throw new KeyNotFoundException($"Không tìm thấy nhân viên với ID: {id}");
+            throw new KeyNotFoundException($"Employee not found with ID: {id}.");
 
         return _mapper.Map<EmployeeDto>(employee);
     }
@@ -44,7 +44,7 @@ public class EmployeeService : IEmployeeService
     {
         var employee = await _employeeRepository.GetByIdAsync(dto.Id);
         if (employee == null)
-            throw new KeyNotFoundException($"Không tìm thấy nhân viên với ID: {dto.Id} để cập nhật.");
+            throw new KeyNotFoundException($"Employee not found with ID: {dto.Id} for update.");
 
         _mapper.Map(dto, employee);
         await _employeeRepository.SaveChangesAsync();
@@ -54,7 +54,7 @@ public class EmployeeService : IEmployeeService
     {
         var employee = await _employeeRepository.GetByIdAsync(id);
         if (employee == null)
-            throw new KeyNotFoundException($"Không tìm thấy nhân viên với ID: {id} để xóa.");
+            throw new KeyNotFoundException($"Employee not found with ID: {id} for deletion.");
 
         _employeeRepository.Delete(employee);
         await _employeeRepository.SaveChangesAsync();

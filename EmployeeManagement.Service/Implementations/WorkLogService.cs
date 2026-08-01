@@ -21,13 +21,13 @@ namespace EmployeeManagement.Service.Implementations
             var employee = await _employeeRepository.GetByIdAsync(dto.EmployeeId);
 
             if (employee == null)
-                throw new KeyNotFoundException($"Nhân viên với ID: {dto.EmployeeId} không tồn tại.");
+                throw new KeyNotFoundException($"Employee with ID: {dto.EmployeeId} does not exist.");
 
             if (!employee.IsActive)
-                throw new InvalidOperationException($"Nhân viên {employee.FullName} đã nghỉ việc, không thể chấm công.");
+                throw new InvalidOperationException($"Employee {employee.FullName} has left the company and cannot log work.");
 
             if (dto.HoursWorked <= 0 || dto.HoursWorked > 24)
-                throw new ArgumentException("Số giờ làm việc phải lớn hơn 0 và nhỏ hơn hoặc bằng 24.");
+                throw new ArgumentException("Hours worked must be greater than 0 and less than or equal to 24.");
 
             var workLog = new WorkLog
             {
