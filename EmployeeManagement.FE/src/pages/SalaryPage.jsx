@@ -11,7 +11,7 @@ export default function SalaryPage() {
   const [loading, setLoading] = useState(false);
 
   const handleExport = async () => {
-    if (!dates) return message.warning('Vui lòng chọn khoảng thời gian');
+    if (!dates) return message.warning('Please select a date range');
     setLoading(true);
     try {
       const from = dates[0].format('YYYY-MM-DD');
@@ -26,7 +26,7 @@ export default function SalaryPage() {
       link.click();
       link.remove();
     } catch {
-      message.error('Xuất báo cáo thất bại');
+      message.error('Failed to export report');
     } finally {
       setLoading(false);
     }
@@ -34,9 +34,9 @@ export default function SalaryPage() {
 
   return (
     <div style={{ padding: 24 }}>
-      <h2>Báo cáo lương</h2>
+      <h2>Salary Report</h2>
       <Card style={{ maxWidth: 500, marginTop: 16 }}>
-        <p style={{ marginBottom: 12 }}>Chọn khoảng thời gian:</p>
+        <p style={{ marginBottom: 12 }}>Select date range:</p>
         <RangePicker
           style={{ width: '100%', marginBottom: 16 }}
           onChange={setDates}
@@ -49,7 +49,7 @@ export default function SalaryPage() {
           onClick={handleExport}
           block
         >
-          Xuất Excel
+          Export Excel
         </Button>
       </Card>
     </div>

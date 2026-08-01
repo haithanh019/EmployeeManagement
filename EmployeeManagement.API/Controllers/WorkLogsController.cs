@@ -1,12 +1,11 @@
-﻿using EmployeeManagement.BusinessObject.DTOs;
-using EmployeeManagement.BusinessObject.DTOs.WorkLogDTO;
+﻿using EmployeeManagement.BusinessObject.DTOs.WorkLogDTO;
 using EmployeeManagement.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagement.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")] 
+[Route("api/[controller]")]
 public class WorkLogsController : ControllerBase
 {
     private readonly IWorkLogService _workLogService;
@@ -20,6 +19,6 @@ public class WorkLogsController : ControllerBase
     public async Task<IActionResult> LogWork([FromBody] CreateWorkLogDto dto)
     {
         await _workLogService.LogWorkAsync(dto);
-        return Ok(new { Message = "Chấm công thành công!" });
+        return Ok(new { Message = "Work logged successfully!" });
     }
 }

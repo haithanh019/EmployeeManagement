@@ -17,30 +17,30 @@ export default function EmployeeModal({ open, onClose, onSubmit, employee }) {
 
   return (
     <Modal
-      title={employee ? 'Cập nhật nhân viên' : 'Thêm nhân viên mới'}
+      title={employee ? 'Update Employee' : 'Add New Employee'}
       open={open}
       onOk={handleOk}
       onCancel={onClose}
-      okText={employee ? 'Cập nhật' : 'Thêm'}
-      cancelText="Huỷ"
+      okText={employee ? 'Update' : 'Add'}
+      cancelText="Cancel"
     >
       <Form form={form} layout="vertical">
-        <Form.Item name="fullName" label="Họ tên"
-          rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}>
+        <Form.Item name="fullName" label="Full Name"
+          rules={[{ required: true, message: 'Please enter full name' }]}>
           <Input />
         </Form.Item>
-        <Form.Item name="position" label="Chức vụ"
-          rules={[{ required: true, message: 'Vui lòng nhập chức vụ' }]}>
+        <Form.Item name="position" label="Position"
+          rules={[{ required: true, message: 'Please enter position' }]}>
           <Input />
         </Form.Item>
-        <Form.Item name="hourlyRate" label="Lương/giờ"
+        <Form.Item name="hourlyRate" label="Hourly Rate"
           rules={[{ required: true }]}>
           <InputNumber min={0} style={{ width: '100%' }}
             formatter={v => `${v}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-            addonAfter="VNĐ" />
+            addonAfter="VND" />
         </Form.Item>
         {employee && (
-          <Form.Item name="isActive" label="Đang làm việc" valuePropName="checked">
+          <Form.Item name="isActive" label="Active" valuePropName="checked">
             <Switch />
           </Form.Item>
         )}

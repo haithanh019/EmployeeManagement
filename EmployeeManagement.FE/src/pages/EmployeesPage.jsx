@@ -23,23 +23,23 @@ export default function EmployeesPage() {
   };
 
   const columns = [
-    { title: 'Họ tên',    dataIndex: 'fullName',   key: 'fullName' },
-    { title: 'Chức vụ',   dataIndex: 'position',   key: 'position' },
+    { title: 'Full Name', dataIndex: 'fullName',   key: 'fullName' },
+    { title: 'Position',  dataIndex: 'position',   key: 'position' },
     {
-      title: 'Lương/giờ', dataIndex: 'hourlyRate', key: 'hourlyRate',
-      render: (v) => `${v.toLocaleString('vi-VN')} VNĐ`,
+      title: 'Hourly Rate', dataIndex: 'hourlyRate', key: 'hourlyRate',
+      render: (v) => `${v.toLocaleString('en-US')} VND`,
     },
     {
-      title: 'Trạng thái', dataIndex: 'isActive', key: 'isActive',
-      render: (v) => <Tag color={v ? 'green' : 'red'}>{v ? 'Đang làm' : 'Nghỉ việc'}</Tag>,
+      title: 'Status', dataIndex: 'isActive', key: 'isActive',
+      render: (v) => <Tag color={v ? 'green' : 'red'}>{v ? 'Active' : 'Inactive'}</Tag>,
     },
     {
-      title: 'Thao tác', key: 'action',
+      title: 'Actions', key: 'action',
       render: (_, record) => (
         <Space>
-          <Button icon={<EditOutlined />} onClick={() => openEdit(record)}>Sửa</Button>
-          <Popconfirm title="Xác nhận xoá?" onConfirm={() => remove(record.id)}>
-            <Button danger icon={<DeleteOutlined />}>Xoá</Button>
+          <Button icon={<EditOutlined />} onClick={() => openEdit(record)}>Edit</Button>
+          <Popconfirm title="Confirm deletion?" onConfirm={() => remove(record.id)}>
+            <Button danger icon={<DeleteOutlined />}>Delete</Button>
           </Popconfirm>
         </Space>
       ),
@@ -49,9 +49,9 @@ export default function EmployeesPage() {
   return (
     <div style={{ padding: 24 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
-        <h2>Quản lý nhân viên</h2>
+        <h2>Employee Management</h2>
         <Button type="primary" icon={<PlusOutlined />} onClick={openCreate}>
-          Thêm nhân viên
+          Add Employee
         </Button>
       </div>
       <Table

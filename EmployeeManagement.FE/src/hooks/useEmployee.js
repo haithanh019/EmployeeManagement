@@ -12,7 +12,7 @@ export function useEmployee() {
       const res = await employeeApi.getAll();
       setEmployees(res.data);
     } catch {
-      message.error('Không thể tải danh sách nhân viên');
+      message.error('Failed to load employee list');
     } finally {
       setLoading(false);
     }
@@ -22,19 +22,19 @@ export function useEmployee() {
 
   const create = async (data) => {
     await employeeApi.create(data);
-    message.success('Thêm nhân viên thành công!');
+    message.success('Employee added successfully!');
     fetchAll();
   };
 
   const update = async (id, data) => {
     await employeeApi.update(id, data);
-    message.success('Cập nhật thành công!');
+    message.success('Update successful!');
     fetchAll();
   };
 
   const remove = async (id) => {
     await employeeApi.delete(id);
-    message.success('Đã xoá nhân viên!');
+    message.success('Employee deleted!');
     fetchAll();
   };
 
