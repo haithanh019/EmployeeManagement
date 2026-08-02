@@ -11,8 +11,8 @@ function AppLayout() {
   const location = useLocation();
 
   const menuItems = [
-    { key: '/',       icon: <TeamOutlined />,     label: 'Nhân viên' },
-    { key: '/salary', icon: <FileTextOutlined />, label: 'Báo cáo lương' },
+    { key: '/',       icon: <TeamOutlined />,     label: 'Staff' },
+    { key: '/salary', icon: <FileTextOutlined />, label: 'Salary Report' },
   ];
 
   return (
