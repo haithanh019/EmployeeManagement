@@ -44,12 +44,16 @@ namespace EmployeeManagement.API
             builder.Services.AddCors(options =>
             {
                 options.AddDefaultPolicy(policy =>
-                    policy.WithOrigins("http://localhost:5173",
-                                       "https://employee-management-silk-omega.vercel.app")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod());
-            });
-            var app = builder.Build();
+                    policy.SetIsOriginAllowed(origin =>
+                    {
+                        if (string.IsNullOrEmpty(origin)) return false;
+                        var host = new Uri(origin).Host;
+                        return host == "localhost"
+                || host.EndsWith(".vercel.app", StringComparison.OrdinalIgnoreCase);
+                    })
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+            }); var app = builder.Build();
             app.UseCors();
             app.UseMiddleware<GlobalExceptionMiddleware>();
 
