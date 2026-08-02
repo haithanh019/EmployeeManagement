@@ -44,7 +44,8 @@ namespace EmployeeManagement.API
             builder.Services.AddCors(options =>
             {
                 options.AddDefaultPolicy(policy =>
-                    policy.WithOrigins("http://localhost:5173")
+                    policy.WithOrigins("http://localhost:5173",
+                                       "https://employee-management-silk-omega.vercel.app")
                           .AllowAnyHeader()
                           .AllowAnyMethod());
             });
